@@ -1,0 +1,26 @@
+﻿@model List<Movie>
+
+<h2>Ønskeliste</h2>
+
+@if (Model != null && Model.Count > 0)
+{
+    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-4">
+        @foreach (var movie in Model)
+        {
+            <div class="movie-card">
+                <a href="@Url.Action("MovieDetails", "Movie", new { movieId = movie.Id })" class="movie-link">
+                    <img src="https://image.tmdb.org/t/p/w200/@movie.Poster_path" alt="@movie.Title poster" class="movie-poster" />
+                    <h5>@movie.Title</h5>
+                </a>
+                <form method="post" action="@Url.Action("RemoveFromWishlist", "Movie")">
+                    <input type="hidden" name="movieId" value="@movie.Id" />
+                    <button type="submit" class="btn btn-danger">Fjern fra ønskeliste</button>
+                </form>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>Din ønskeliste er tom.</p>
+}

@@ -1,0 +1,70 @@
+﻿@model List<Movie>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Movies</title>
+    <link rel="stylesheet" href="~/css/styles.css">
+</head>
+<body>
+
+    <h1>Udforsk</h1>
+
+    <div id="movie-container" class="movie-grid">
+        @foreach (var movie in Model)
+        {
+            <div class="movie-card">
+                <a href="@Url.Action("MovieDetails", "Movie", new { movieId = movie.Id })" class="movie-link">
+                <img src="https://image.tmdb.org/t/p/w200/@movie.Poster_path" alt="@movie.Title poster" class="movie-poster" />
+                <h3>@movie.Title</h3>
+                </a>
+            </div>
+        }
+    </div>
+    <div class="load-more-container">
+        <a href="javascript:void(0)" id="loadMoreBtn" class="btn">Load More</a>
+    </div>
+
+    <script>
+                    let currentPage = 1; // Start på side 1
+
+        document.getElementById("loadMoreBtn").addEventListener("click", function() {
+            currentPage++; // Gå til næste side
+
+            fetch(`/Movie/LoadMoreMovies?page=${currentPage}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(movies => {
+                    console.log(`Loaded ${movies.length} more movies`); // Debugging
+                    const container = document.getElementById("movie-container");
+
+                        movies.forEach(function(movie) {
+        console.log(movie.Poster_path); // Tjek værdien af Poster_path
+        const movieCard = document.createElement("div");
+        movieCard.classList.add("movie-card");
+        movieCard.innerHTML = `
+            <a href="/Movie/MovieDetails?movieId=${movie.id}" class="movie-link">
+                <img src="https://image.tmdb.org/t/p/w200/${movie.poster_path}" alt="${movie.title} poster" class="movie-poster" />
+                <h3>${movie.title}</h3>
+            </a>
+                        `;
+                        container.appendChild(movieCard);
+                    });
+
+                    // Hvis der ikke er flere film, skjul knappen
+                    if (movies.length < 20) {
+                        console.log("No more movies available, hiding button.");
+                        document.getElementById("loadMoreBtn").style.display = "none";
+                    }
+                })
+                .catch(error => console.error("Error loading more movies:", error));
+        });
+    </script>
+</body>
+</html>

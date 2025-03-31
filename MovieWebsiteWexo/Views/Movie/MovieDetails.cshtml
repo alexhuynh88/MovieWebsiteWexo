@@ -1,0 +1,32 @@
+﻿@model Movie
+
+<div class="movie-backdrop" style="background-image: url('https://image.tmdb.org/t/p/original/@Model.Backdrop_path');">
+    <div class="movie-backdrop-overlay"></div>
+    <div class="movie-details-container">
+        <h2 class="movie-title">@Model.Title</h2>
+        <p class="movie-overview">@Model.Overview</p>
+        <p class="movie-details-text"><strong>Release Year:</strong> @Model.ReleaseDate?.Year</p>
+        <p class="movie-details-text"><strong>Original Language:</strong> @Model.OriginalLanguage</p>
+        
+        <!-- Hvis filmen er i ønskelisten, vis et flueben eller hjerte -->
+        @if (ViewBag.IsInWishlist != null && (bool)ViewBag.IsInWishlist)
+        {
+            <div class="Add-WishList-container">
+                <button class="btn">
+                    <i class="fa fa-heart"></i> Tilføjet til ønskeliste
+                </button>
+            </div>
+        }
+        else
+        {
+            <form method="post" action="@Url.Action("AddToWishlist", "Movie")">
+                <input type="hidden" name="movieId" value="@Model.Id" />
+                <div class="Add-WishList-container">
+                    <button type="submit" class="btn">
+                        <i class="fa fa-heart-o"></i> Tilføj til ønskeliste
+                    </button>
+                </div>
+            </form>
+        }
+    </div>
+</div>

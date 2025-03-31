@@ -1,0 +1,28 @@
+﻿@model List<Genre>
+<div>
+    @foreach (var genre in Model)
+    {
+        <div class="genre-header">
+        <h2 class="genre-title">@genre.Name (@genre.MovieCount film)</h2>
+            <div class="se-all-container">
+                <a href="@Url.Action("GenreDetails", "Home", new { genreId = genre.Id })" class="btn">Se alle</a>
+            </div>
+        </div>
+            <div class="movie-slider-container">
+            <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-4" id="slider-@genre.Name">
+
+                @foreach (var movie in genre.Movies)
+                {
+                    <div class="movie-card">
+                        <!-- Link til filmens detaljer -->
+                        <a href="@Url.Action("MovieDetails", "Movie", new { movieId = movie.Id })" class="movie-link">
+                        <img src="https://image.tmdb.org/t/p/w200/@movie.Poster_path" alt="@movie.Title poster" class="movie-poster" />
+                        <h5>@movie.Title</h5>
+                        </a>
+                    </div>
+                    
+                }
+            </div>
+        </div>
+    }
+</div>
