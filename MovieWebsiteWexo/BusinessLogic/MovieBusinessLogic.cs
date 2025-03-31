@@ -28,7 +28,10 @@ namespace MovieWebsiteWexo.BusinessLogic
             foreach (var genre in selectedGenres)
             {
                 var moviePage = await _movieService.GetMoviesByGenreAsync(genre.Id, page);
-
+                if (genre.Movies == null)
+                {
+                    genre.Movies = new List<Movie>();
+                }
                 // Sæt total film-antal i genren
                 genre.MovieCount = moviePage.Results.Count;
 
@@ -62,6 +65,7 @@ namespace MovieWebsiteWexo.BusinessLogic
                     TotalPages = 0
                 };
             }
+
 
             return movieResponse; // Returnér API-responsen direkte
         }

@@ -19,25 +19,10 @@ namespace MovieWebsiteWexo.Controllers
         {
             var moviesByGenres = await _movieBusinessLogic.GetGenresWithMoviesAsync(page);
 
-            // Gem den aktuelle side i ViewBag i stedet for en modelklasse
-            // Find den genre, der er relevant for pagineringen
-            //var currentGenre = moviesByGenres.FirstOrDefault(g => g.Id == genreId);
-
-            // Opret MovieGenreViewModel med filmene og genre informationen
             var viewModel = new MovieViewModel
             {
-                MovieGenres = moviesByGenres.Select(genre => new Genre
-                {
-                    Id = genre.Id,
-                    Name = genre.Name,
-                    Movies = genre.Movies,
-                    TotalCount = genre.Movies.Count()
-                }).ToList()
+                MovieGenres = moviesByGenres
             };
-
-            // Passér viewModel til viewet
-            //ViewBag.CurrentGenreId = genreId;
-            //ViewBag.CurrentPage = page;
 
             return View(viewModel.MovieGenres);
         }
