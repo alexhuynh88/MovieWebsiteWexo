@@ -33,7 +33,7 @@ namespace MovieWebsiteWexo.BusinessLogic
                     genre.Movies = new List<Movie>();
                 }
                 // Sæt total film-antal i genren
-                genre.MovieCount = moviePage.Results.Count;
+                genre.MovieCount = moviePage.TotalResults;
 
                 if (page == 1)
                 {
