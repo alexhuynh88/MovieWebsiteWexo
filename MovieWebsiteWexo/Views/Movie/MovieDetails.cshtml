@@ -5,9 +5,41 @@
     <div class="movie-details-container">
         <h2 class="movie-title">@Model.Title</h2>
         <p class="movie-overview">@Model.Overview</p>
-        <p class="movie-details-text"><strong>Release Year:</strong> @Model.ReleaseDate?.Year</p>
-        <p class="movie-details-text"><strong>Original Language:</strong> @Model.OriginalLanguage</p>
         
+        <div class="movie-genres"><strong>Release Date:</strong> @Model.ReleaseDate</div>
+        <!-- Vis genre for filmen -->
+        <div class="movie-genres">
+            <strong>Genres:</strong>
+            @foreach (var genre in Model.Genres)
+            {
+                <span class="genre-badge">@genre.Name</span>
+            }
+        </div>
+
+        <!-- Skuespillere -->
+        <div class="movie-genres">
+            <strong>Actors:</strong>
+            @foreach (var actor in Model.Actors.Take(3))
+            {
+                @actor.Name
+                @if (actor != Model.Actors.LastOrDefault() && Model.Actors.Take(3).SkipWhile(a => a != actor).Skip(1).Any())
+                {
+                    @:,
+                }
+            }
+        </div>
+        <!-- Instruktører - Maks 2, adskilt med komma -->
+        <p class="movie-genres">
+            <strong> Directors:</strong>
+            @foreach (var director in Model.Directors.Take(2))
+            {
+                @director.Name
+                @if (director != Model.Directors.LastOrDefault() && Model.Directors.Take(2).SkipWhile(d => d != director).Skip(1).Any())
+                {
+                    @:,
+                }
+            }
+        </p>
         <!-- Hvis filmen er i ønskelisten, vis et flueben eller hjerte -->
         @if (ViewBag.IsInWishlist != null && (bool)ViewBag.IsInWishlist)
         {

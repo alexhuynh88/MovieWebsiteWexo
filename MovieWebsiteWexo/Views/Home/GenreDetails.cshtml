@@ -1,5 +1,6 @@
 ﻿@model Genre
 
+
 <h2 class="genre-title">@Model.Name - Alle Film</h2>
 
 <div class="movie-slider-container">
@@ -8,44 +9,45 @@
         {
             <div class="movie-card">
                 <a href="@Url.Action("MovieDetails", "Movie", new { movieId = movie.Id })" class="movie-link">
-                <img src="https://image.tmdb.org/t/p/w200/@movie.Poster_path" alt="@movie.Title poster" class="movie-poster" />
-                <h5>@movie.Title</h5>
+                    <img src="https://image.tmdb.org/t/p/w200/@movie.Poster_path" alt="@movie.Title poster" class="movie-poster" />
+                    <h5>@movie.Title</h5>
                 </a>
             </div>
         }
     </div>
 </div>
 
-<div class="load-more-container">
-    <a href="javascript:void(0)" id="loadMoreBtn" class="btn">Load More</a>
-</div>
+@if (ViewBag.TotalPages > 1)
+{
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            <!-- Previous page button -->
+            @if (ViewBag.Page > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/Movie/GenreDetails/@ViewBag.GenreId?page=@(ViewBag.Page - 1)" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
 
-<script>
-    let currentPage = @ViewBag.CurrentPage;
-    const genreId = @Model.Id;
+            <!-- Page number buttons -->
+            @for (int i = 1; i <= ViewBag.TotalPages && i <= 10; i++)
+            {
+                <li class="page-item @(i == ViewBag.Page ? "active" : "")">
+                    <a class="page-link" href="/Movie/GenreDetails/@ViewBag.GenreId@(i == 1 ? "" : "?page=" + i)">@i</a>
+                </li>
+            }
 
-    document.getElementById("loadMoreBtn").addEventListener("click", function () {
-        currentPage++; // Gå til næste side
-
-        fetch(`/Movie/LoadMoreMovies?genreId=${genreId}&page=${currentPage}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    let movieContainer = document.getElementById("slider-@Model.Name");
-                    data.movies.forEach(movie => {
-                        let movieCard = `
-                            <div class="movie-card">
-                                <a href="/Movie/MovieDetails?movieId=${movie.id}" class="movie-link">
-                                    <img src="https://image.tmdb.org/t/p/w200/${movie.poster_path}" alt="${movie.title} poster" class="movie-poster" />
-                                    <h5>${movie.title}</h5>
-                                </a>
-                            </div>`;
-                        movieContainer.innerHTML += movieCard;
-                    });
-                } else {
-                    alert(data.message); // Ingen flere film
-                }
-            })
-            .catch(error => console.error("Fejl ved hentning af film:", error));
-    });
-</script>
+            <!-- Next page button -->
+            @if (ViewBag.Page < ViewBag.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/Movie/GenreDetails/@ViewBag.GenreId?page=@(ViewBag.Page + 1)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+}

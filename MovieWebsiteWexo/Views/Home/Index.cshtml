@@ -5,7 +5,7 @@
         <div class="genre-header">
         <h2 class="genre-title">@genre.Name (@genre.MovieCount film)</h2>
             <div class="se-all-container">
-                <a href="@Url.Action("GenreDetails", "Home", new { genreId = genre.Id })" class="btn">Se alle</a>
+                <a href="/Movie/GenreDetails/@genre.Id" class="btn">Se alle</a>
             </div>
         </div>
             <div class="movie-slider-container">

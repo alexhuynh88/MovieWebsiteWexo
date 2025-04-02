@@ -35,7 +35,6 @@ namespace MovieWebsiteWexo.Controllers
                 return NotFound();  // Hvis filmen ikke findes, returner NotFound.
             }
 
-            // Hent status for ønskelisten
             ViewBag.IsInWishlist = IsMovieInWishlist(movieId);  // Tjek om filmen er i ønskelisten
             return View(movie);  // Returner filmen til viewet.
         }

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieWebsiteWexo.BusinessLogic;
 using MovieWebsiteWexo.Models;
+using MovieWebsiteWexo.ServiceLayer;
 using System.Diagnostics;
 
 namespace MovieWebsiteWexo.Controllers
@@ -26,8 +27,7 @@ namespace MovieWebsiteWexo.Controllers
 
             return View(viewModel.MovieGenres);
         }
-
-        //[HttpGet("Movie/GenreDetails/{genreId}")]
+        [HttpGet("Movie/GenreDetails/{genreId}")]
         public async Task<IActionResult> GenreDetails(int genreId, string genreName, int page = 1)
         {
             
@@ -49,27 +49,44 @@ namespace MovieWebsiteWexo.Controllers
             // Opdater Genre-modellen med filmdata
             selectedGenres.Movies = movieResponse.Results;
             selectedGenres.MovieCount = movieResponse.TotalResults;
-            selectedGenres.TotalPages = movieResponse.TotalPages;
+            // Beregn TotalPages baseret på TotalResults og pageSize
+            int pageSize = 20; // Vælg en passende pageSize
+            selectedGenres.TotalPages = (int)Math.Ceiling((double)movieResponse.TotalResults / pageSize);
+            Console.WriteLine($"TotalResults: {movieResponse.TotalResults}");
+            Console.WriteLine($"PageSize: {20}");
+            Console.WriteLine($"Calculated TotalPages: {(int)Math.Ceiling((double)movieResponse.TotalResults / 20)}");
             selectedGenres.CurrentPage = page;
 
+            // Sæt ViewBag-variabler for pagination og resultater
+            ViewBag.GenreName = genreName; // Sæt genrenavn
+            ViewBag.GenreId = genreId; // Sæt genreId
+            ViewBag.TotalResults = movieResponse.TotalResults; // Sæt totalResults
+            ViewBag.TotalPages = (int)Math.Ceiling((double)movieResponse.TotalResults / pageSize);
+            ViewBag.Page = page; // Sæt den aktuelle side
 
             return View(selectedGenres); // Returnerer genre med alle dens film
         }
 
         public async Task<IActionResult> LoadMoreMovies(int genreId, int page = 1)
         {
-            Console.WriteLine($"LoadMoreMovies called with genreId: {genreId}, page: {page}");
-            var movieResponse = await _movieBusinessLogic.GetMoviesByGenreAsync(genreId, page);
+            // Hent filmene for den genre og den ønskede side
+            var movieApiResponse = await _movieBusinessLogic.GetMoviesByGenreAsync(genreId, page);
+            Console.WriteLine($"Total Results: {movieApiResponse.TotalResults}");  // Debugger total results
+            Console.WriteLine($"Results: {movieApiResponse.Results?.Count()}");
 
-            if (movieResponse == null || movieResponse.Results.Count == 0)
+            // Hvis der ikke er nogen film
+            if (movieApiResponse.Results == null || !movieApiResponse.Results.Any() || page > Math.Ceiling((double)movieApiResponse.TotalResults / 20))
             {
-                Console.WriteLine("No movies found!");
-                return Json(new { success = false, message = "Ingen flere film." });
+                return Json(new { success = false, message = "Ingen flere film" });
             }
 
-            // Log JSON-outputtet for debugging
-            Console.WriteLine($"Returning {movieResponse.Results.Count} movies for genre {genreId} on page {page}");
-            return Json(new { success = true, movies = movieResponse.Results });
+            // Hvis der er film, send dem tilbage
+            return Json(new
+            {
+                success = true,
+                movies = movieApiResponse.Results,
+                currentPage = page
+            });
         }
 
         public IActionResult Privacy()

@@ -50,7 +50,7 @@ namespace MovieWebsiteWexo.BusinessLogic
 
         public async Task<MovieApiResponse> GetMoviesByGenreAsync(int genreId, int page)
         {
-            var movieResponse = await _movieService.GetMoviesByGenreAsync(genreId);
+            var movieResponse = await _movieService.GetMoviesByGenreAsync(genreId, page);
 
             //var selectedGenres = GetPredefinedGenres();
 

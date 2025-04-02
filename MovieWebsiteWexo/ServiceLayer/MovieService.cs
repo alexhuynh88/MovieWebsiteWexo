@@ -74,6 +74,25 @@ namespace MovieWebsiteWexo.ServiceLayer
             var movieDetails = JsonConvert.DeserializeObject<Movie>(content);
             Console.WriteLine($"Parsed Language: {movieDetails.OriginalLanguage}");
 
+            var actorsUrl = $"{_apiUrl}movie/{movieId}/credits?api_key={_apiKey}";
+            var actorsResponse = await _httpClient.GetAsync(actorsUrl);
+            if (actorsResponse.IsSuccessStatusCode)
+            {
+                var actorsContent = await actorsResponse.Content.ReadAsStringAsync();
+                var actorsData = JsonConvert.DeserializeObject<dynamic>(actorsContent);
+                movieDetails.Actors = actorsData.cast.ToObject<List<Actor>>();  // Skuespillere er ofte i 'cast' feltet
+            }
+
+            // Hent instruktører
+            var directorsUrl = $"{_apiUrl}movie/{movieId}/credits?api_key={_apiKey}";
+            var directorsResponse = await _httpClient.GetAsync(directorsUrl);
+            if (directorsResponse.IsSuccessStatusCode)
+            {
+                var directorsContent = await directorsResponse.Content.ReadAsStringAsync();
+                var directorsData = JsonConvert.DeserializeObject<dynamic>(directorsContent);
+                movieDetails.Directors = directorsData.crew.ToObject<List<Director>>();
+            }
+
             return movieDetails;
         }
     }
