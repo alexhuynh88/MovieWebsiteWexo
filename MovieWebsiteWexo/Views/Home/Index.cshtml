@@ -1,6 +1,6 @@
 ﻿@model MovieWebsiteWexo.Models.MovieViewModel
 
-<div id="randomMoviesCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" style="margin-top: 60px;">
+<div id="randomMoviesCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" style="margin-top: 10px;">
     <div class="carousel-inner">
         @foreach (var movie in Model.RandomMovies)
         {
@@ -9,7 +9,7 @@
                 <div class="movie-backdrop" style="background-image: url('https://image.tmdb.org/t/p/original/@movie.Backdrop_path'); position: relative;">
                     <!-- Juster kun overlay på teksten -->
                     <div class="carousel-caption d-none d-md-block" style="background: rgba(0, 0, 0, 0.7); color: white; padding: 15px; border-radius: 8px; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 80%; text-align: center;">
-                        <h5>@movie.Title</h5>
+                        <h4>@movie.Title</h4>
                         <p>@movie.Overview</p>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
         <div class="genre-header">
             <h2 class="genre-title">@genre.Name (@genre.MovieCount film)</h2>
             <div class="se-all-container">
-                <a href="/Movie/GenreDetails/@genre.Id" class="btn">Se alle</a>
+                <a href="/Movie/GenreDetails/@genre.Id" class="btn">See all</a>
             </div>
         </div>
         <div class="movie-slider-container">

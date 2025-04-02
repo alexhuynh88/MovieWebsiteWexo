@@ -1,6 +1,6 @@
 ﻿@model List<Movie>
 
-<h2>Ønskeliste</h2>
+<h2>Your wish list</h2>
 
 @if (Model != null && Model.Count > 0)
 {
@@ -14,13 +14,9 @@
                 </a>
                 <form method="post" action="@Url.Action("RemoveFromWishlist", "Movie")">
                     <input type="hidden" name="movieId" value="@movie.Id" />
-                    <button type="submit" class="btn btn-danger">Fjern fra ønskeliste</button>
+                    <button type="submit" class="btn btn-danger">Remove</button>
                 </form>
             </div>
         }
     </div>
-}
-else
-{
-    <p>Din ønskeliste er tom.</p>
 }
