@@ -19,13 +19,15 @@ namespace MovieWebsiteWexo.Controllers
         public async Task<IActionResult> Index(int genreId, int page = 1)
         {
             var moviesByGenres = await _movieBusinessLogic.GetGenresWithMoviesAsync(page);
+            var randomMovies = await _movieBusinessLogic.GetRandomMovies(); // Hent tilfældige film
 
             var viewModel = new MovieViewModel
             {
-                MovieGenres = moviesByGenres
+                MovieGenres = moviesByGenres,
+                RandomMovies = randomMovies
             };
 
-            return View(viewModel.MovieGenres);
+            return View(viewModel);
         }
         [HttpGet("Movie/GenreDetails/{genreId}")]
         public async Task<IActionResult> GenreDetails(int genreId, string genreName, int page = 1)

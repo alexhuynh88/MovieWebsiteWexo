@@ -94,6 +94,11 @@ namespace MovieWebsiteWexo.BusinessLogic
             return movieDetails;
         }
 
+        public async Task<List<Movie>> GetRandomMovies()
+        {
+            return await _movieService.GetRandomMoviesAsync(5);  // 5 tilfældige film
+        }
+
     }
 
 

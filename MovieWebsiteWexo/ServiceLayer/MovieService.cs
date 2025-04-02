@@ -95,5 +95,23 @@ namespace MovieWebsiteWexo.ServiceLayer
 
             return movieDetails;
         }
+
+        public async Task<List<Movie>> GetRandomMoviesAsync(int numberOfMovies = 5)
+        {
+            var allMovies = new List<Movie>();
+            int page = 1;
+
+            // Hent film i batches af 20
+            while (allMovies.Count < numberOfMovies)
+            {
+                var movies = await GetMoviesAsync(page);
+                allMovies.AddRange(movies);
+                page++;
+            }
+
+            // Vælg tilfældige film fra listen
+            var randomMovies = allMovies.OrderBy(x => Guid.NewGuid()).Take(numberOfMovies).ToList();
+            return randomMovies;
+        }
     }
 }
