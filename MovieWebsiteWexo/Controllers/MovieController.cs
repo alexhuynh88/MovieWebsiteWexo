@@ -68,7 +68,7 @@ namespace MovieWebsiteWexo.Controllers
         {
             // Brug sessionens metoder til at fjerne film
             HttpContext.Session.RemoveFromWishlist(movieId);
-            return RedirectToAction("Wishlist");
+            return RedirectToAction("MovieDetails", new { movieId = movieId });
         }
 
         // Vis ønskelisten

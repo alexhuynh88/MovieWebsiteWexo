@@ -37,6 +37,7 @@ h1 {
 
 h2 {
     font-family: Merriweather, serif;
+    text-transform: uppercase;
     margin-top: 20px;
     font-size: 28px;
     color: #FFFFFF;
@@ -128,6 +129,10 @@ h3 {
     margin: 10px 0;
     color: #333;
 }
+
+h4 {
+    text-transform: uppercase;
+}
 .pagination .btn {
     color: white !important; /* Gør teksten hvid */
     background-color: transparent; /* Ingen baggrund */
@@ -208,7 +213,7 @@ h3 {
 }
 
 .movie-title {
-    font-family: Bookman Old Style, serif;
+    font-family: Merriweather, serif;
     font-size: 1.8rem; /* Juster tekststørrelsen efter behov */
     margin-bottom: 15px;
 }
@@ -233,7 +238,7 @@ h3 {
 /* Specifik CSS for index-siden */
 #randomMoviesCarousel .movie-backdrop {
     position: relative;
-    height: 500px; /* Juster efter behov */
+    height: 800px; /* Juster efter behov */
     background-size: cover;
     background-position: center;
     background-image: url('https://image.tmdb.org/t/p/original/@Model.Poster_path'); /* Brug originalt backdrop-billede */
