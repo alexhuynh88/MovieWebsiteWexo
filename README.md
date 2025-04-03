@@ -20,13 +20,16 @@ The project is built using **ASP.NET MVC**, and it communicates with an external
 - **JavaScript** – Enhancements for interactivity.
 - **Session Storage** – To store the wishlist dynamically.
 
-  ⚠️ API Key Warning
+
+⚠️ API Key Warning
+
 Before running the project, you must add your own API key in appsettings.json:
 
 {
-  "MovieApiUrl": "https://api.themoviedb.org/3",
+"MovieApiUrl": "https://api.themoviedb.org/3",
   "MovieApiKey": "your-api-key-here"
-}
+  }
+
 
 🏆 Credits
 Developed by Alex Huynh as part of a code challenge project for Wexo.
