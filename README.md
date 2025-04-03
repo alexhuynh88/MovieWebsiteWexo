@@ -30,6 +30,20 @@ Before running the project, you must add your own API key in appsettings.json:
   "MovieApiKey": "your-api-key-here"
   }
 
+## ▶️ How to Run the Project
+
+Open Visual Studio.
+
+Open the project and set it as the startup project.
+
+Ensure you are using IIS Express with HTTPS enabled.
+
+Click Run (▶️) or press F5 to start the application.
+
+The application will open in your browser at https://localhost:xxxx/ (where xxxx is your port number).
+
+Start browsing movies! 🍿
+
 
 ## 🏆 Credits
 
