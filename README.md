@@ -21,7 +21,7 @@ The project is built using **ASP.NET MVC**, and it communicates with an external
 - **Session Storage** – To store the wishlist dynamically.
 
 
-⚠️ API Key Warning
+## ⚠️ API Key Warning
 
 Before running the project, you must add your own API key in appsettings.json:
 
@@ -31,5 +31,6 @@ Before running the project, you must add your own API key in appsettings.json:
   }
 
 
-🏆 Credits
+## 🏆 Credits
+
 Developed by Alex Huynh as part of a code challenge project for Wexo.
