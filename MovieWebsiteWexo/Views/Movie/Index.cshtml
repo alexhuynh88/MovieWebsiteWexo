@@ -1,5 +1,6 @@
 ﻿@model List<Movie>
 
+<div class="content-container" style="margin-top: 80px;">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +11,7 @@
 </head>
 <body>
 
-    <h1>Udforsk</h1>
+    <h2>Discover</h2>
 
     <div id="movie-container" class="movie-grid">
         @foreach (var movie in Model)
@@ -18,7 +19,7 @@
             <div class="movie-card">
                 <a href="@Url.Action("MovieDetails", "Movie", new { movieId = movie.Id })" class="movie-link">
                 <img src="https://image.tmdb.org/t/p/w200/@movie.Poster_path" alt="@movie.Title poster" class="movie-poster" />
-                <h3>@movie.Title</h3>
+                <h5>@movie.Title</h5>
                 </a>
             </div>
         }
@@ -51,7 +52,7 @@
         movieCard.innerHTML = `
             <a href="/Movie/MovieDetails?movieId=${movie.id}" class="movie-link">
                 <img src="https://image.tmdb.org/t/p/w200/${movie.poster_path}" alt="${movie.title} poster" class="movie-poster" />
-                <h3>${movie.title}</h3>
+                <h5>${movie.title}</h5>
             </a>
                         `;
                         container.appendChild(movieCard);

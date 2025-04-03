@@ -23,7 +23,7 @@ body {
     margin-bottom: 60px;
     padding: 0;
     background-color: #000042; /* Mørkeblå baggrund som oprindeligt */
-    background: linear-gradient(135deg, #2f2f2f, #000042, #4b0082); /* Gradient fra mørkeblå (#000042) til mørkelilla (#4b0082) og mørkerød (#8b0000) */
+    background: linear-gradient(135deg, #2f2f2f, #000042); /* Gradient fra mørkeblå (#000042) til mørkelilla (#4b0082) og mørkerød (#8b0000) */
     box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.7); /* Mørk skygge på baggrunden */
 }
 
@@ -190,7 +190,7 @@ h4 {
     background-size: cover;
     background-position: center center;
     height: 100vh; /* Fylder hele viewport-højden */
-    margin-top: 10px;
+    margin-top: 0px;
 }
 
 /* Gradient overlay */
@@ -211,13 +211,14 @@ h4 {
     justify-content: center;
     align-items: center;
     height: 100%;
-    padding: 20px;
+    /*padding: 20px;*/
+    padding: 70px 20px 20px;
 }
 
 /* Info-container */
 .movie-info-container {
     display: flex;
-    max-width: 1200px; /* Begræns bredden af indholdet */
+    max-width: 1000px; /* Begræns bredden af indholdet */
     width: 100%;
     margin: 0 auto;
 }
@@ -230,6 +231,7 @@ h4 {
     background: rgba(0, 0, 0, 0.6);
     margin-right: 20px;
     border-radius: 8px;
+    padding: 70px 20px 20px; /* Skubber teksten længere ned */
 }
 
 
@@ -262,12 +264,12 @@ h4 {
 /* Specifik CSS for index-siden */
 #randomMoviesCarousel .movie-backdrop {
     position: relative;
-    height: 800px; /* Juster efter behov */
+    height: 100vh; /* Juster efter behov */
     background-size: cover;
     background-position: center;
     background-image: url('https://image.tmdb.org/t/p/original/@Model.Poster_path'); /* Brug originalt backdrop-billede */
     overflow: hidden; /* Sørg for, at gradienten ikke går udenfor */
-    margin-top: 10px;
+    margin-top: 0;
 }
 
 #randomMoviesCarousel .carousel-caption {
@@ -282,6 +284,7 @@ h4 {
     transform: translateX(-50%);
     width: 80%;
     text-align: center;
+    z-index: 2; /* Holder teksten foran gradienten */
 }
 
 #randomMoviesCarousel .carousel-item img {
@@ -297,7 +300,7 @@ h4 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: none; /* Fjern gradienten */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2));
     z-index: 1; /* Sørg for, at gradienten er bag teksten */
 }
 

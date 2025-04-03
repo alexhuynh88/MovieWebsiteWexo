@@ -32,7 +32,7 @@ namespace MovieWebsiteWexo.BusinessLogic
         /// <param name="page">The page of movies to fetch. Default is 1.</param>
         /// <param name="moviesPerGenre">The number of movies to fetch per genre. Default is 6.</param>
         /// <returns>A list of genres, each containing a list of movies.</returns>
-        public async Task<List<Genre>> GetGenresWithMoviesAsync(int page = 1, int moviesPerGenre = 6)
+        public async Task<List<Genre>> GetGenresWithMoviesAsync(int page = 1)
         {
             var selectedGenres = GetPredefinedGenres();
 
@@ -47,7 +47,7 @@ namespace MovieWebsiteWexo.BusinessLogic
 
                 if (page == 1)
                 {
-                    genre.Movies = moviePage.Results.Take(moviesPerGenre).ToList();
+                    genre.Movies = moviePage.Results.Take(5).ToList();
                 }
                 else
                 {

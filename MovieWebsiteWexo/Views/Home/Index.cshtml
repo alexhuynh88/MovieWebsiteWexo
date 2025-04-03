@@ -1,6 +1,6 @@
 ﻿@model MovieWebsiteWexo.Models.MovieViewModel
 
-<div id="randomMoviesCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" style="margin-top: 10px;">
+<div id="randomMoviesCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
     <div class="carousel-inner">
         @foreach (var movie in Model.RandomMovies)
         {
@@ -31,14 +31,14 @@
 <div>
     @foreach (var genre in Model.MovieGenres)
     {
-        <div class="genre-header">
+        <div class="genre-header" style="margin-top: 60px;">
             <h2 class="genre-title">@genre.Name (@genre.MovieCount film)</h2>
             <div class="se-all-container">
                 <a href="/Movie/GenreDetails/@genre.Id" class="btn">See all</a>
             </div>
         </div>
         <div class="movie-slider-container">
-            <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-4" id="slider-@genre.Name">
+            <div class="movie-grid" id="slider-@genre.Name">
                 @foreach (var movie in genre.Movies)
                 {
                     <div class="movie-card">
