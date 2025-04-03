@@ -22,10 +22,10 @@ The project is built using **ASP.NET MVC**, and it communicates with an external
 
   ⚠️ API Key Warning
 Before running the project, you must add your own API key in appsettings.json:
+
 {
   "MovieApiUrl": "https://api.themoviedb.org/3",
   "MovieApiKey": "your-api-key-here"
-
 }
 
 🏆 Credits
