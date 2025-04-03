@@ -1,67 +1,74 @@
 ﻿@model Movie
 
-<div class="movie-backdrop" style="background-image: url('https://image.tmdb.org/t/p/original/@Model.Backdrop_path'); margin-top: 10px;">
+<div class="movie-backdrop" style="background-image: url('https://image.tmdb.org/t/p/original/@Model.Backdrop_path');">
     <div class="movie-backdrop-overlay"></div>
     <div class="movie-details-container">
-        <h2 class="movie-title">@Model.Title</h2>
-        <p class="movie-overview">@Model.Overview</p>
-        
-        <div class="movie-genres"><strong>Release Date:</strong> @Model.ReleaseDate</div>
-        <!-- Vis genre for filmen -->
-        <div class="movie-genres">
-            <strong>Genres:</strong>
-            @foreach (var genre in Model.Genres)
-            {
-                <span class="genre-badge">@genre.Name</span>
-            }
-        </div>
+        <div class="movie-info-container">
+            <!-- Venstre side: Tekstdetaljer -->
+            <div class="movie-text-details">
+                <h3 class="movie-title">@Model.Title</h3>
+                <p class="movie-overview">@Model.Overview</p>
+                <div class="movie-genres"><strong>Release Date:</strong> @Model.ReleaseDate</div>
+                <div class="movie-genres">
+                    <strong>Genres:</strong>
+                    @foreach (var genre in Model.Genres)
+                    {
+                        <span class="genre-badge">@genre.Name</span>
+                    }
+                </div>
 
-        <!-- Skuespillere -->
-        <div class="movie-genres">
-            <strong>Actors:</strong>
-            @foreach (var actor in Model.Actors.Take(3))
-            {
-                @actor.Name
-                @if (actor != Model.Actors.LastOrDefault() && Model.Actors.Take(3).SkipWhile(a => a != actor).Skip(1).Any())
+                <div class="movie-genres">
+                    <strong>Actors:</strong>
+                    @foreach (var actor in Model.Actors.Take(3))
+                    {
+                        @actor.Name
+                        @if (actor != Model.Actors.LastOrDefault() && Model.Actors.Take(3).SkipWhile(a => a != actor).Skip(1).Any())
+                        {
+                            @:,
+                        }
+                    }
+                </div>
+                <p class="movie-genres">
+                    <strong> Directors:</strong>
+                    @foreach (var director in Model.Directors.Take(2))
+                    {
+                        @director.Name
+                        @if (director != Model.Directors.LastOrDefault() && Model.Directors.Take(2).SkipWhile(d => d != director).Skip(1).Any())
+                        {
+                            @:,
+                        }
+                    }
+                </p>
+
+                <!-- Wishlist knapper -->
+                @if (ViewBag.IsInWishlist != null && (bool)ViewBag.IsInWishlist)
                 {
-                    @:,
+                    <form method="post" action="@Url.Action("RemoveFromWishlist", "Movie")">
+                        <input type="hidden" name="movieId" value="@Model.Id" />
+                        <div class="Add-WishList-container">
+                            <button type="submit" class="btn remove-btn">
+                                <i class="fa fa-heart-broken"></i> Remove
+                            </button>
+                        </div>
+                    </form>
                 }
-            }
+                else
+                {
+                    <form method="post" action="@Url.Action("AddToWishlist", "Movie")">
+                        <input type="hidden" name="movieId" value="@Model.Id" />
+                        <div class="Add-WishList-container">
+                            <button type="submit" class="btn add-btn">
+                                <i class="fa fa-heart"></i> Add to wish list
+                            </button>
+                        </div>
+                    </form>
+                }
+            </div>
+
+            <!-- Højre side: Filmplakat -->
+            <div class="movie-poster">
+                <img src="https://image.tmdb.org/t/p/original/@Model.Poster_path" alt="Poster for @Model.Title">
+            </div>
         </div>
-        <!-- Instruktører - Maks 2, adskilt med komma -->
-        <p class="movie-genres">
-            <strong> Directors:</strong>
-            @foreach (var director in Model.Directors.Take(2))
-            {
-                @director.Name
-                @if (director != Model.Directors.LastOrDefault() && Model.Directors.Take(2).SkipWhile(d => d != director).Skip(1).Any())
-                {
-                    @:,
-                }
-            }
-        </p>
-        <!-- Hvis filmen er i ønskelisten, vis et flueben eller hjerte -->
-        @if (ViewBag.IsInWishlist != null && (bool)ViewBag.IsInWishlist)
-        {
-            <form method="post" action="@Url.Action("RemoveFromWishlist", "Movie")">
-                <input type="hidden" name="movieId" value="@Model.Id" />
-                <div class="Add-WishList-container">
-                    <button type="submit" class="btn remove-btn">
-                        <i class="fa fa-heart-broken"></i> Remove
-                    </button>
-                </div>
-            </form>
-        }
-        else
-        {
-            <form method="post" action="@Url.Action("AddToWishlist", "Movie")">
-                <input type="hidden" name="movieId" value="@Model.Id" />
-                <div class="Add-WishList-container">
-                    <button type="submit" class="btn add-btn">
-                        <i class="fa fa-heart"></i> Add to wish list
-                    </button>
-                </div>
-            </form>
-        }
     </div>
 </div>

@@ -5,6 +5,8 @@
         @foreach (var movie in Model.RandomMovies)
         {
             <div class="carousel-item @((movie == Model.RandomMovies.First()) ? "active" : "")">
+                <!-- Gør hele baggrunden til et link -->
+                <a href="@Url.Action("MovieDetails", "Movie", new { movieId = movie.Id })" style="text-decoration: none; color: inherit;">
                 <!-- Brug af højopløsnings backdrop-billede -->
                 <div class="movie-backdrop" style="background-image: url('https://image.tmdb.org/t/p/original/@movie.Backdrop_path'); position: relative;">
                     <!-- Juster kun overlay på teksten -->
@@ -50,6 +52,10 @@
         </div>
     }
 </div>
+
+@{
+    ViewData["BodyClass"] = "index-page";
+}
 
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">

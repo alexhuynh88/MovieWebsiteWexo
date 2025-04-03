@@ -27,6 +27,11 @@ body {
     box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.7); /* Mørk skygge på baggrunden */
 }
 
+    /* Use this specific class for the index page */
+    body.index-page {
+        padding-bottom: 100px; /* Adjust for space */
+    }
+
 h1 {
     font-family: Merriweather, serif;
     text-align: center;
@@ -37,7 +42,6 @@ h1 {
 
 h2 {
     font-family: Merriweather, serif;
-    text-transform: uppercase;
     margin-top: 20px;
     font-size: 28px;
     color: #FFFFFF;
@@ -125,9 +129,10 @@ h2 {
 }
 
 h3 {
-    font-size: 18px;
+    text-transform: uppercase;
+    font-size: 26px;
     margin: 10px 0;
-    color: #333;
+    color: #FFFFFF;
 }
 
 h4 {
@@ -179,48 +184,67 @@ h4 {
     color: white;
 }
 
+/* Fyld hele skærmen med backdrop */
 .movie-backdrop {
     position: relative;
-    width: 100%;
-    height: 100vh; /* Juster efter behov */
     background-size: cover;
     background-position: center center;
-    background-repeat: no-repeat;
-    background-image: url('https://image.tmdb.org/t/p/w500/@Model.Poster_path'); /* Først billedet */
+    height: 100vh; /* Fylder hele viewport-højden */
+    margin-top: 10px;
 }
 
-    .movie-backdrop::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(to right, rgba(0, 0, 0, 1.5), rgba(0, 0, 0, 0.0) 70%); /* Mørk venstre side til gennemsigtig højre side */
-        z-index: 1; /* Sørger for, at gradienten er bag teksten */
-    }
-
-.movie-details-container {
-    font-family: Merriweather, serif;
+/* Gradient overlay */
+.movie-backdrop-overlay {
     position: absolute;
-    top: 50%;
-    left: 10%; /* Placer tekst til venstre */
-    transform: translateY(-50%);
-    color: white;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Semi-transparent mørk overlay */
+}
+
+/* Boks til filmdetaljer */
+.movie-details-container {
+    position: relative;
     z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
     padding: 20px;
-    max-width: 400px; /* For at sikre, at teksten ikke bliver for bred */
 }
 
-.movie-title {
-    font-family: Merriweather, serif;
-    font-size: 1.8rem; /* Juster tekststørrelsen efter behov */
-    margin-bottom: 15px;
+/* Info-container */
+.movie-info-container {
+    display: flex;
+    max-width: 1200px; /* Begræns bredden af indholdet */
+    width: 100%;
+    margin: 0 auto;
 }
 
-.movie-details-text {
-    font-family: Merriweather, serif;
-    font-size: 1.2rem; /* Juster tekststørrelsen efter behov */
+/* Venstre side: Tekst */
+.movie-text-details {
+    flex: 1;
+    color: white;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    margin-right: 20px;
+    border-radius: 8px;
+}
+
+
+/* Højre side: Filmplakat */
+.movie-poster {
+    flex-shrink: 0;
+    max-width: 300px;
+    width: 100%;
+    text-align: center;
+}
+
+    .movie-poster img {
+        width: 100%;
+        border-radius: 8px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -243,6 +267,7 @@ h4 {
     background-position: center;
     background-image: url('https://image.tmdb.org/t/p/original/@Model.Poster_path'); /* Brug originalt backdrop-billede */
     overflow: hidden; /* Sørg for, at gradienten ikke går udenfor */
+    margin-top: 10px;
 }
 
 #randomMoviesCarousel .carousel-caption {

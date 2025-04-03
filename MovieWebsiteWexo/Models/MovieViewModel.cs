@@ -1,12 +1,14 @@
 ﻿namespace MovieWebsiteWexo.Models
 {
+    /// <summary>
+    /// Represents the view model for movies, containing the list of genres and random movie suggestions.
+    /// </summary>
     public class MovieViewModel
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public List<Movie> Movies { get; set; }
-        public List<Genre> MovieGenres { get; set; }  // Liste af genres med film
+        /// Used to display movies organized by genre.
+        public List<Genre> MovieGenres { get; set; }
+
+        /// Used to display a random selection of movie suggestions.
         public List<Movie> RandomMovies { get; set; }
-        public int TotalCount { get; set; }
     }
 }

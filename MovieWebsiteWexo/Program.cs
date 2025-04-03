@@ -7,8 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddHttpClient<MovieService, MovieService>();
-builder.Services.AddScoped<MovieBusinessLogic, MovieBusinessLogic>();
+builder.Services.AddHttpClient<IMovieService, MovieService>();
+builder.Services.AddScoped<IMovieBusinessLogic, MovieBusinessLogic>();
 
 // Konfigurer cache og session
 builder.Services.AddDistributedMemoryCache();

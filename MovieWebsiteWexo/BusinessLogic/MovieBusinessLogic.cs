@@ -1,30 +1,41 @@
 ﻿using MovieWebsiteWexo.Models;
 using MovieWebsiteWexo.ServiceLayer;
-using Newtonsoft.Json;
 
 namespace MovieWebsiteWexo.BusinessLogic
 {
-    public class MovieBusinessLogic
+    public class MovieBusinessLogic : IMovieBusinessLogic
     {
-        private readonly MovieService _movieService;
+        /// <summary>
+        /// Handles business logic for movie-related operations. Communicates with IMovieService to fetch data from the API.
+        /// </summary>
+        private readonly IMovieService _movieService;
 
-        public MovieBusinessLogic(MovieService movieService)
+        public MovieBusinessLogic(IMovieService movieService)
         {
             _movieService = movieService;
         }
 
+        /// <summary>
+        /// Fetches a list of movies based on the desired page.
+        /// </summary>
+        /// <param name="page">The page of movies to fetch.</param>
+        /// <returns>A list of movies on the specified page.</returns>
         public async Task<List<Movie>> GetMovies(int page)
         {
-            var movies = await _movieService.GetMoviesAsync(page); // Passer page parameter videre til servicelaget
+            var movies = await _movieService.GetMoviesAsync(page);
             return movies;
         }
 
-
+        /// <summary>
+        /// Fetches movies grouped by genres, with a maximum number of movies per genre.
+        /// </summary>
+        /// <param name="page">The page of movies to fetch. Default is 1.</param>
+        /// <param name="moviesPerGenre">The number of movies to fetch per genre. Default is 6.</param>
+        /// <returns>A list of genres, each containing a list of movies.</returns>
         public async Task<List<Genre>> GetGenresWithMoviesAsync(int page = 1, int moviesPerGenre = 6)
         {
             var selectedGenres = GetPredefinedGenres();
 
-            // Hent filmene for hver genre med pagination
             foreach (var genre in selectedGenres)
             {
                 var moviePage = await _movieService.GetMoviesByGenreAsync(genre.Id, page);
@@ -32,29 +43,30 @@ namespace MovieWebsiteWexo.BusinessLogic
                 {
                     genre.Movies = new List<Movie>();
                 }
-                // Sæt total film-antal i genren
                 genre.MovieCount = moviePage.TotalResults;
 
                 if (page == 1)
                 {
-                    genre.Movies = moviePage.Results.Take(moviesPerGenre).ToList();  // Begræns til 6 film på første side
+                    genre.Movies = moviePage.Results.Take(moviesPerGenre).ToList();
                 }
                 else
                 {
-                    genre.Movies.AddRange(moviePage.Results); // Tilføj flere film til listen
+                    genre.Movies.AddRange(moviePage.Results);
                 }
             }
 
             return selectedGenres;
         }
 
+        /// <summary>
+        /// Fetches movies for a specific genre based on the genre ID and desired page.
+        /// </summary>
+        /// <param name="genreId">The ID of the genre for which movies should be fetched.</param>
+        /// <param name="page">The page of movies to fetch.</param>
+        /// <returns>A MovieApiResponse containing the movies and additional information such as TotalResults and TotalPages.</returns>
         public async Task<MovieApiResponse> GetMoviesByGenreAsync(int genreId, int page)
         {
             var movieResponse = await _movieService.GetMoviesByGenreAsync(genreId, page);
-
-            //var selectedGenres = GetPredefinedGenres();
-
-            //var genre = selectedGenres.FirstOrDefault(g => g.Id == genreId);
 
             if (!movieResponse.Results.Any())
             {
@@ -65,11 +77,13 @@ namespace MovieWebsiteWexo.BusinessLogic
                     TotalPages = 0
                 };
             }
-
-
-            return movieResponse; // Returnér API-responsen direkte
+            return movieResponse;
         }
 
+        /// <summary>
+        /// Returns a list of predefined genres.
+        /// </summary>
+        /// <returns>A list of genres with ID and name.</returns>
         public List<Genre> GetPredefinedGenres()
         {
             return new List<Genre>
@@ -86,17 +100,25 @@ namespace MovieWebsiteWexo.BusinessLogic
     };
         }
 
+        /// <summary>
+        /// Fetches details for a specific movie based on its ID.
+        /// </summary>
+        /// <param name="movieId">The ID of the movie for which details should be fetched.</param>
+        /// <returns>A Movie object with the movie's details.</returns>
         public async Task<Movie> GetMovieDetailsAsync(int movieId)
         {
-            // Hent filmens detaljer fra MovieService
             var movieDetails = await _movieService.GetMovieDetailsAsync(movieId);
 
             return movieDetails;
         }
 
+        /// <summary>
+        /// Fetches a list of random movies.
+        /// </summary>
+        /// <returns>A list of random movies.</returns>
         public async Task<List<Movie>> GetRandomMovies()
         {
-            return await _movieService.GetRandomMoviesAsync(5);  // 5 tilfældige film
+            return await _movieService.GetRandomMoviesAsync(5);
         }
 
     }
