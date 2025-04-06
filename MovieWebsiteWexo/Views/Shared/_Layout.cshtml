@@ -11,11 +11,20 @@
 </head>
 <body class="@ViewData["BodyClass"]">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm" style="background: rgba(0, 0, 0, 0.4); z-index: 1000; height: 40px;
-           position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 95%; border-radius: 10px;">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm"
+             style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+            z-index: 1000;
+            height: 60px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            box-shadow: none;
+            border-bottom: none;">
             <div class="container-fluid">
                 <!-- Logo as Text -->
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index" style="font-size: 2rem; font-family: Times New Roman, serif; color: white; letter-spacing: 1px; white-space: nowrap;">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index" style="font-size: 2rem; font-family: Arial Narrow, sans-serif; font-weight: bold; color: white; letter-spacing: 1px; white-space: nowrap; margin-left: 25px;">
                     <span style="font-size: 2.0rem; opacity: 0.7;">MOVIE</span>
                 </a>
 
@@ -27,11 +36,11 @@
                 <!-- Navbar Links -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item" style="margin-right: 15px;">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Movie" asp-action="Index" style="font-size: 1.3rem; font-family: Garamond, serif; opacity: 0.7;">Discover</a>
+                        <li class="nav-item" style="margin-right: 25px;">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Movie" asp-action="Index" style="font-size: 1.3rem; font-family: Arial Narrow, sans-serif; opacity: 0.7;">DISCOVER</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Movie" asp-action="WishList" style="font-size: 1.3rem; font-family: Garamond, serif; opacity: 0.7;">Wish List</a>
+                        <li class="nav-item" style="margin-right: 25px;">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Movie" asp-action="WishList" style="font-size: 1.3rem; font-family: Arial Narrow, sans-serif; opacity: 0.7;">WISH LIST</a>
                         </li>
                     </ul>
                 </div>
@@ -39,7 +48,7 @@
         </nav>
     </header>
     <div class="container-fluid">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3" style="@(ViewData["BodyClass"]?.ToString() == "index-page" ? "padding-top: 0;" : "padding-top: 80px;")">
             @RenderBody()
         </main>
     </div>

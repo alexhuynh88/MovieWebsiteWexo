@@ -20,7 +20,6 @@ html {
 
 body {
     font-family: Merriweather, serif;
-    margin-bottom: 60px;
     padding: 0;
     background-color: #000042; /* Mørkeblå baggrund som oprindeligt */
     background: linear-gradient(135deg, #2f2f2f, #000042); /* Gradient fra mørkeblå (#000042) til mørkelilla (#4b0082) og mørkerød (#8b0000) */
@@ -33,7 +32,7 @@ body {
     }
 
 h1 {
-    font-family: Merriweather, serif;
+    font-family: Arial Narrow, sans-serif;
     text-align: center;
     margin-top: 20px;
     font-size: 36px;
@@ -41,7 +40,7 @@ h1 {
 }
 
 h2 {
-    font-family: Merriweather, serif;
+    font-family: Arial Narrow, sans-serif;
     margin-top: 20px;
     font-size: 28px;
     color: #FFFFFF;
@@ -93,14 +92,12 @@ h2 {
     display: flex;
     justify-content: space-between; /* Placerer genre-navnet til venstre og knappen til højre */
     align-items: center; /* Justerer begge elementer til samme højde */
-    margin-bottom: 5px; /* Mellemrum mellem genre-header og movie-slider-container */
-    margin-top: 20px;
 }
 
 /* Genre titel */
 .genre-title {
     font-size: 24px;
-    margin-bottom: 10px;
+
     color: white;
 }
 
@@ -158,7 +155,7 @@ h4 {
     margin-bottom: 10px; /* Adds space between the button and the movie slider */
 }
     .se-all-container .btn {
-        font-family: Merriweather, serif;
+        font-family: Arial Narrow, sans-serif;
         background-color: transparent; /* Gør baggrunden gennemsigtig */
         color: white; /* Sætter tekstfarven til hvid */
         padding: 10px 20px;
@@ -212,7 +209,7 @@ h4 {
     align-items: center;
     height: 100%;
     /*padding: 20px;*/
-    padding: 70px 20px 20px;
+    padding: 20px;
 }
 
 /* Info-container */
@@ -231,7 +228,7 @@ h4 {
     background: rgba(0, 0, 0, 0.6);
     margin-right: 20px;
     border-radius: 8px;
-    padding: 70px 20px 20px; /* Skubber teksten længere ned */
+    padding: 20px;
 }
 
 
