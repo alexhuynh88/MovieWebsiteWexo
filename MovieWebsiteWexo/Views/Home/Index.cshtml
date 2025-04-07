@@ -1,4 +1,4 @@
-﻿@model MovieWebsiteWexo.Models.MovieViewModel
+﻿@model MovieWebsiteWexo.Models.Movie
 
 <div id="randomMoviesCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
     <div class="carousel-inner">
@@ -28,8 +28,8 @@
     </button>
 </div>
 
-<div>
-    @foreach (var genre in Model.MovieGenres)
+<div div style="width: 90%; margin: 0 auto; padding: 40px 20px;">
+    @foreach (var genre in Model.Genres)
     {
         <div class="genre-header" style="margin-top: 60px;">
             <h2 class="genre-title">@genre.Name (@genre.MovieCount film)</h2>
@@ -38,10 +38,10 @@
             </div>
         </div>
         <div class="movie-slider-container">
-            <div class="movie-grid" id="slider-@genre.Name">
+            <div class="movie-grid" id="slider-@genre.Name" style="display: flex; justify-content: center; gap: 20px;">
                 @foreach (var movie in genre.Movies)
                 {
-                    <div class="movie-card">
+                    <div class="movie-card" style="width: 100%; text-align: center;">
                         <a href="@Url.Action("MovieDetails", "Movie", new { movieId = movie.Id })" class="movie-link">
                             <img src="https://image.tmdb.org/t/p/w200/@movie.Poster_path" alt="@movie.Title poster" class="movie-poster" />
                             <h5>@movie.Title</h5>

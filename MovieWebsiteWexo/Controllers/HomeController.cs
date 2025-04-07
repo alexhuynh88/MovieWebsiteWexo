@@ -28,9 +28,9 @@ namespace MovieWebsiteWexo.Controllers
             var moviesByGenres = await _movieBusinessLogic.GetGenresWithMoviesAsync(page);
             var randomMovies = await _movieBusinessLogic.GetRandomMovies();
 
-            var viewModel = new MovieViewModel
+            var viewModel = new Movie
             {
-                MovieGenres = moviesByGenres,
+                Genres = moviesByGenres,
                 RandomMovies = randomMovies
             };
 

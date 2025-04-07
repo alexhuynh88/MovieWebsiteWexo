@@ -93,7 +93,7 @@ namespace MovieWebsiteWexo.Controllers
         public IActionResult RemoveFromWishlist(int movieId)
         {
             HttpContext.Session.RemoveFromWishlist(movieId);
-            return RedirectToAction("MovieDetails", new { movieId = movieId });
+            return RedirectToAction("Wishlist");
         }
 
         /// <summary>
